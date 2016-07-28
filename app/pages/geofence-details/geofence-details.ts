@@ -2,12 +2,17 @@ import { Component } from "@angular/core";
 import { NavController, NavParams, MenuController } from "ionic-angular";
 import * as Leaflet from "leaflet";
 import { GeofenceService } from "../../services/geofence-service";
+import {DataAccessService} from "../../services/dataacess-service";
+import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
+import {FarmLocation} from "../../models/farm-location";
+import {String} from "es6-shim";
 
 @Component({
   templateUrl: "build/pages/geofence-details/geofence-details.html"
 })
 export class GeofenceDetailsPage {
   private geofence: Geofence;
+  private farmLocation: FarmLocation;
   private _radius: number;
   private _latLng: any;
   private notificationText: string;
@@ -16,14 +21,18 @@ export class GeofenceDetailsPage {
   private marker: any;
   private map: any;
 
+  private response: string;
+
   constructor(
     private nav: NavController,
     navParams: NavParams,
     private geofenceService: GeofenceService,
-    private menu: MenuController
+    private menu: MenuController,
+    private dataService: DataAccessService
   ) {
     this.geofenceService = geofenceService;
     this.geofence = navParams.get("geofence");
+    console.log(Json.stringify(this.geofence));
     this.transitionType = this.geofence.transitionType.toString();
     this.notificationText = this.geofence.notification.text;
     this._radius = this.geofence.radius;
@@ -91,6 +100,11 @@ export class GeofenceDetailsPage {
     geofence.latitude = this.latLng.lat;
     geofence.longitude = this.latLng.lng;
     geofence.transitionType = parseInt(this.transitionType, 10);
+
+
+    this.dataService.addFarm({customerId: 'nish.cse@gmail.com', farmId: this.geofence['id'], farmName: this.notificationText,latitude: String(geofence.latitude), longitude: String(geofence.longitude), radius: String(geofence.radius)})
+      .subscribe(response => this.response = response,
+        error => console.log(error));
 
     this.geofenceService.addOrUpdate(geofence).then(() => {
       this.nav.pop();

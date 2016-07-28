@@ -3,14 +3,15 @@
  */
 
 import {Injectable} from "@angular/core";
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import "rxjs/Rx";
 import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
+import {FarmLocation} from "../models/farm-location";
 
 
 @Injectable()
-export class HttpService {
+export class DataAccessService {
   constructor(private _http : Http) {}
 
   getPosts(): Observable<any> {
@@ -18,13 +19,20 @@ export class HttpService {
       .map(res => res.json());
   }
 
-  addFarm (geofence: Geofence) : Observable<any> {
-    const body = Json.stringify(geofence);
+  addFarm (farmLocation: FarmLocation) : Observable<any> {
+    const body = Json.stringify(farmLocation);
     console.log(body);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this._http.post('http://localhost:8080/farm/add', body, {headers: headers})
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+
+  private handleError (error: Response) {
+    console.error(error);
+    return Observable.throw(error.json().error || ' error');
   }
 }
 

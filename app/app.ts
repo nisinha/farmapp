@@ -6,6 +6,8 @@ import { GeofenceService } from "./services/geofence-service";
 import GeofencePluginMock from "./services/geofence-plugin-mock";
 import { FIXTURES } from "./models/geofence";
 import {LoginScreenPage} from "./pages/login-screen/login-screen";
+import {DataAccessService} from "./services/dataacess-service";
+import {HTTP_PROVIDERS, HTTP_BINDINGS} from "@angular/http";
 
 @Component({
   templateUrl: "build/app.html"
@@ -82,4 +84,4 @@ export class MyApp {
 // Set any config for your app as the third argument:
 // http://ionicframework.com/docs/v2/api/config/Config/
 
-ionicBootstrap(MyApp, [GeofenceService], {});
+ionicBootstrap(MyApp, [GeofenceService, DataAccessService, HTTP_PROVIDERS], {});
