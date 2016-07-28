@@ -2,11 +2,11 @@
 
 
 ## Installation
-
+install node.js to get npm
 Use local npm packages
 
 ```
-npm install
+Go to root folder of the project and type npm install
 ```
 
 If you're using `ionic-cli` installed globally not locally you should install the latest beta version in order to run this project.
