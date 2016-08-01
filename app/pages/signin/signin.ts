@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {FORM_DIRECTIVES, FormBuilder,  ControlGroup, Validators, AbstractControl} from '@angular/common';
 import {CustomValidators} from "../../validators/CustomValidators";
@@ -15,7 +15,8 @@ import {GeofenceListPage} from "../geofence-list/geofence-list";
 @Component({
   templateUrl: 'build/pages/signin/signin.html',
 })
-export class SigninPage {
+export class SigninPage implements OnInit{
+
 
   authForm: ControlGroup;
   username: AbstractControl;
@@ -24,8 +25,12 @@ export class SigninPage {
   incorrectPassword = false;
   incorrectUserName = false;
   loginSuccessfull = false;
-  constructor(private navController: NavController, private fb: FormBuilder, private data: DataProvider) {
-    this.authForm = fb.group({
+  constructor(private navController: NavController, private formBuilder: FormBuilder, private data: DataProvider) {
+
+  }
+
+  ngOnInit():any {
+    this.authForm = this.formBuilder.group({
       'username': ['', Validators.compose([Validators.required, Validators.minLength(5), CustomValidators.checkFirstCharacterValidator])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(6), CustomValidators.checkFirstCharacterValidator])]
     });
@@ -33,6 +38,7 @@ export class SigninPage {
     this.username = this.authForm.controls['username'];
     this.password = this.authForm.controls['password'];
   }
+
 
   onSubmit(value: string): void {
     if(this.authForm.valid) {
@@ -42,11 +48,11 @@ export class SigninPage {
           console.log(todos);
           this.items = Json.parse(todos);
 
-          if(this.username.value !== this.items['username']) {
+          if(value['username'] !== this.items['username']) {
             console.log('uname inc');
             this.incorrectUserName = true;
           }
-          if(this.password.value !== this.items['password']) {
+          if(value['password'] !== this.items['password']) {
             this.incorrectPassword = true;
           }
           if(!this.incorrectPassword && !this.incorrectUserName) {
