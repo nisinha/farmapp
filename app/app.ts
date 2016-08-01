@@ -8,6 +8,9 @@ import { FIXTURES } from "./models/geofence";
 import {LoginScreenPage} from "./pages/login-screen/login-screen";
 import {DataAccessService} from "./services/dataacess-service";
 import {HTTP_PROVIDERS, HTTP_BINDINGS} from "@angular/http";
+import {DataProvider} from "./providers/data-provider/data-provider";
+import {FirstscreenPage} from "./pages/firstscreen/firstscreen";
+import {SigninPage} from "./pages/signin/signin";
 
 @Component({
   templateUrl: "build/app.html"
@@ -15,7 +18,7 @@ import {HTTP_PROVIDERS, HTTP_BINDINGS} from "@angular/http";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginScreenPage;
+  rootPage: any = FirstscreenPage;
 
   constructor(
     platform: Platform,
@@ -84,4 +87,4 @@ export class MyApp {
 // Set any config for your app as the third argument:
 // http://ionicframework.com/docs/v2/api/config/Config/
 
-ionicBootstrap(MyApp, [GeofenceService, DataAccessService, HTTP_PROVIDERS], {});
+ionicBootstrap(MyApp, [GeofenceService, DataAccessService, HTTP_PROVIDERS, DataProvider], {});
