@@ -8,5 +8,6 @@ export interface FarmLocation {
   latitude: string;
   longitude: string;
   radius: string;
+  crop: string;
 
 }

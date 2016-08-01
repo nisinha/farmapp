@@ -4,6 +4,7 @@ import { GeofenceDetailsPage } from "../geofence-details/geofence-details";
 import { GeofenceService } from "../../services/geofence-service";
 import { GeofenceListItem } from "../../components/geofence-list-item/geofence-list-item";
 import {FarmdetailsPage} from "../farmdetails/farmdetails";
+import {CropGeofence} from "../../models/crop-farm";
 
 @Component({
   templateUrl: "build/pages/geofence-list/geofence-list.html",
@@ -11,7 +12,7 @@ import {FarmdetailsPage} from "../farmdetails/farmdetails";
 })
 export class GeofenceListPage {
   isLoading: boolean = false;
-  geofences: [Geofence];
+  geofences: [CropGeofence];
 
   constructor(
     private nav: NavController,

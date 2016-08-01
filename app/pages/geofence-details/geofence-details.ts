@@ -6,12 +6,13 @@ import {DataAccessService} from "../../services/dataacess-service";
 import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
 import {FarmLocation} from "../../models/farm-location";
 import {String} from "es6-shim";
+import {CropGeofence} from "../../models/crop-farm";
 
 @Component({
   templateUrl: "build/pages/geofence-details/geofence-details.html"
 })
 export class GeofenceDetailsPage {
-  private geofence: Geofence;
+  private geofence: CropGeofence;
   private _radius: number;
   private _latLng: any;
   private notificationText: string;
@@ -19,7 +20,7 @@ export class GeofenceDetailsPage {
   private circle: any;
   private marker: any;
   private map: any;
-
+  private crop: string;
   private response: string;
 
   constructor(
@@ -36,6 +37,7 @@ export class GeofenceDetailsPage {
     this.transitionType = this.geofence.transitionType.toString();
     this.notificationText = this.geofence.notification.text;
     this._radius = this.geofence.radius;
+    this.crop = this.geofence.crop;
     this._latLng = Leaflet.latLng(this.geofence.latitude, this.geofence.longitude);
   }
 
@@ -100,9 +102,10 @@ export class GeofenceDetailsPage {
     geofence.latitude = this.latLng.lat;
     geofence.longitude = this.latLng.lng;
     geofence.transitionType = parseInt(this.transitionType, 10);
+    geofence.crop = this.crop;
 
     this.events.publish('farm:details', geofence);
-    this.dataService.addFarm({customerId: 'nish.cse@gmail.com', farmId: this.geofence['id'], farmName: this.notificationText,latitude: String(geofence.latitude), longitude: String(geofence.longitude), radius: String(geofence.radius)})
+    this.dataService.addFarm({customerId: 'nish.cse@gmail.com', farmId: this.geofence['id'], farmName: this.notificationText,latitude: String(geofence.latitude), longitude: String(geofence.longitude), radius: String(geofence.radius), crop: this.crop})
       .subscribe(response => this.response = response,
         error => console.log(error));
 

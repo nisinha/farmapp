@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import generateUUID from "../utils/uuid";
+import {CropGeofence} from "../models/crop-farm";
 
 @Injectable()
 export class GeofenceService {
-  private geofences: Geofence[];
+  private geofences: CropGeofence[];
 
   create(attributes) {
     const defaultGeofence = {
@@ -19,16 +20,17 @@ export class GeofenceService {
         icon: "res://ic_menu_mylocation",
         openAppOnClick: true,
       },
+      crop: 'Rice',
     };
 
     return Object.assign(defaultGeofence, attributes);
   }
 
-  clone(geofence: Geofence) {
+  clone(geofence: CropGeofence) {
     return JSON.parse(JSON.stringify(geofence));
   }
 
-  addOrUpdate(geofence: Geofence) {
+  addOrUpdate(geofence: CropGeofence) {
     return window.geofence.addOrUpdate(geofence)
       .then(() => this.findById(geofence.id))
       .then((found) => {
@@ -46,7 +48,6 @@ export class GeofenceService {
     return window.geofence.getWatched()
       .then((geofencesJson) => {
         const geofences = JSON.parse(geofencesJson);
-
         this.geofences = geofences;
         return geofences;
       });
