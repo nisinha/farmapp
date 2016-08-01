@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.tsubik.ionic2geofence" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Ionic2 Geofence</name>
-  <description>Sample Cordova Geofence Application Built With Ionic 2</description>
-  <author email="tsubik@gmail.com" href="http://tsubik.com/">Tomasz Subik</author>
+  <name>Krishi App</name>
+  <description>App that helps farmer increasing the crop productivity</description>
+  <author email="nish.cse@gmail.com">Krishi</author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-intent href="http://*/*"/>
