@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {GeofenceDetailsPage} from "../geofence-details/geofence-details";
+import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
 
 /*
   Generated class for the FarmdetailsPage page.
@@ -13,9 +14,11 @@ import {GeofenceDetailsPage} from "../geofence-details/geofence-details";
 })
 export class FarmdetailsPage {
   private geofence: Geofence;
-
+  private farmName: string;
   constructor(private nav: NavController, private navParam: NavParams) {
       this.geofence = this.navParam.get('geofence');
+    console.log(Json.stringify(this.geofence));
+    this.farmName = this.geofence.notification.text;
   }
 
   edit() {
