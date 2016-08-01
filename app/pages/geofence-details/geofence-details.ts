@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, MenuController } from "ionic-angular";
+import {NavController, NavParams, MenuController, Events} from "ionic-angular";
 import * as Leaflet from "leaflet";
 import { GeofenceService } from "../../services/geofence-service";
 import {DataAccessService} from "../../services/dataacess-service";
@@ -27,7 +27,8 @@ export class GeofenceDetailsPage {
     navParams: NavParams,
     private geofenceService: GeofenceService,
     private menu: MenuController,
-    private dataService: DataAccessService
+    private dataService: DataAccessService,
+    private events: Events
   ) {
     this.geofenceService = geofenceService;
     this.geofence = navParams.get("geofence");
@@ -100,7 +101,7 @@ export class GeofenceDetailsPage {
     geofence.longitude = this.latLng.lng;
     geofence.transitionType = parseInt(this.transitionType, 10);
 
-
+    this.events.publish('farm:details', geofence);
     this.dataService.addFarm({customerId: 'nish.cse@gmail.com', farmId: this.geofence['id'], farmName: this.notificationText,latitude: String(geofence.latitude), longitude: String(geofence.longitude), radius: String(geofence.radius)})
       .subscribe(response => this.response = response,
         error => console.log(error));

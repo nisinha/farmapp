@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, Events} from 'ionic-angular';
 import {GeofenceDetailsPage} from "../geofence-details/geofence-details";
 import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
 
@@ -15,10 +15,15 @@ import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
 export class FarmdetailsPage {
   private geofence: Geofence;
   private farmName: string;
-  constructor(private nav: NavController, private navParam: NavParams) {
+  constructor(private nav: NavController, private navParam: NavParams, private events: Events) {
       this.geofence = this.navParam.get('geofence');
+
     console.log(Json.stringify(this.geofence));
     this.farmName = this.geofence.notification.text;
+    events.subscribe('farm:details', (userEventData) => {
+      // userEventData is an array of parameters, so grab our first and only arg
+      this.farmName = userEventData[0].notification.text;
+    });
   }
 
   edit() {
