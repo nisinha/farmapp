@@ -7,7 +7,7 @@
 
 <ion-content class="geofence-list-page">
   <ion-list inset *ngIf="!isLoading && geofences.length > 0">
-    <geofence-list-item *ngFor="let geofence of geofences" [geofence]="geofence" (onItemTapped)="geofenceItemTapped(geofence)">
+    <geofence-list-item *ngFor="let geofence of geofences" [geofence]="geofence" (onItemTapped)="farmTapped(geofence)">
     </geofence-list-item>
   </ion-list>
 
@@ -23,6 +23,6 @@
   </ion-card>
 </ion-content>
 
-<button fab fab-right fab-bottom (click)="new()" class="add-geofence-button">
+<button fab fab-right fab-bottom (click)="addFarm()" class="add-geofence-button">
   <ion-icon name="add"></ion-icon>
 </button>

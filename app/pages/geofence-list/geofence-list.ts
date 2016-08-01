@@ -3,7 +3,7 @@ import { NavController, Platform, MenuController } from "ionic-angular";
 import { GeofenceDetailsPage } from "../geofence-details/geofence-details";
 import { GeofenceService } from "../../services/geofence-service";
 import { GeofenceListItem } from "../../components/geofence-list-item/geofence-list-item";
-import { Splashscreen } from "ionic-native";
+import {FarmdetailsPage} from "../farmdetails/farmdetails";
 
 @Component({
   templateUrl: "build/pages/geofence-list/geofence-list.html",
@@ -34,11 +34,9 @@ export class GeofenceListPage {
     this.menu.enable(true);
   }
 
-  ionViewLoaded() {
-    Splashscreen.hide();
-  }
 
-  new() {
+
+  addFarm() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const geofence = this.geofenceService.create({
@@ -55,8 +53,8 @@ export class GeofenceListPage {
     );
   }
 
-  geofenceItemTapped(geofence) {
-    this.transitionToDetailsPage(geofence);
+  farmTapped(geofence) {
+    this.nav.push(FarmdetailsPage, {geofence});
   }
 
   transitionToDetailsPage(geofence) {

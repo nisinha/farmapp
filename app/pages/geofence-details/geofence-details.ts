@@ -12,7 +12,6 @@ import {String} from "es6-shim";
 })
 export class GeofenceDetailsPage {
   private geofence: Geofence;
-  private farmLocation: FarmLocation;
   private _radius: number;
   private _latLng: any;
   private notificationText: string;

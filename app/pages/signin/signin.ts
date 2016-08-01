@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {FORM_DIRECTIVES, FormBuilder,  ControlGroup, Validators, AbstractControl} from '@angular/common';
+import {FormBuilder,  ControlGroup, Validators, AbstractControl} from '@angular/common';
 import {CustomValidators} from "../../validators/CustomValidators";
 import {DataProvider} from "../../providers/data-provider/data-provider";
 import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
-import {HomePage} from "../home/home";
 import {GeofenceListPage} from "../geofence-list/geofence-list";
 /*
   Generated class for the SigninPage page.

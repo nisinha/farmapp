@@ -6,6 +6,7 @@ import {DataProvider} from "../../providers/data-provider/data-provider";
 import {Json} from "@angular/platform-browser-dynamic/src/facade/lang";
 import {HomePage} from "../home/home";
 import {GeofenceListPage} from "../geofence-list/geofence-list";
+import {Splashscreen} from "ionic-native/dist/index";
 
 /*
   Generated class for the FirstscreenPage page.
@@ -32,6 +33,9 @@ export class FirstscreenPage implements OnInit{
         console.log('setting root to geofece');
       }
     });
+  }
+  ionViewLoaded() {
+    Splashscreen.hide();
   }
 
   onSignup() {
