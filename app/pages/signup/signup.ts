@@ -15,7 +15,7 @@ import {GeofenceListPage} from "../geofence-list/geofence-list";
 @Component({
   templateUrl: 'build/pages/signup/signup.html',
 })
-export class SignupPage implements OnInit{
+export class SignupPage{
 
   authForm: ControlGroup;
   username: AbstractControl;
@@ -23,7 +23,12 @@ export class SignupPage implements OnInit{
   cpassword: AbstractControl;
   notSame= false;
   items: any;
-  constructor(private navController: NavController, private formBuilder: FormBuilder, private data: DataProvider) {
+  constructor(private navController: NavController, private fb: FormBuilder, private data: DataProvider) {
+    this.authForm = fb.group({
+      'username': ['', Validators.compose([Validators.required, Validators.minLength(6), CustomValidators.checkFirstCharacterValidator])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(5), CustomValidators.checkFirstCharacterValidator])],
+      'cpassword': ['', Validators.compose([Validators.required, Validators.minLength(5), CustomValidators.checkFirstCharacterValidator])]
+    });
 
     this.username = this.authForm.controls['username'];
     this.password = this.authForm.controls['password'];
@@ -31,24 +36,18 @@ export class SignupPage implements OnInit{
 
   }
 
-  ngOnInit():any {
-    this.authForm = this.formBuilder.group({
-      'username': ['', Validators.compose([Validators.required, Validators.minLength(5), CustomValidators.checkFirstCharacterValidator])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(6), CustomValidators.checkFirstCharacterValidator])],
-      'cpassword': ['', Validators.compose([Validators.required, Validators.minLength(6), CustomValidators.checkFirstCharacterValidator])]
-    });
-
-  }
-
-
   onSubmit(value: string) {
-    let password = value['password'];
-    let userName = value['username'];
-    if (password != userName) {
+    let password =  value['password'];
+    let username =  value['username'];
+
+    if (password != username) {
       this.notSame = true;
+      console.log('not same');
+
     }
-    else {
-      var detail = {username: userName, password: password};
+      if(this.password.value === this.cpassword.value) {
+        console.log('same');
+        var detail = {username: username, password: password};
       this.data.save(detail);
       this.navController.setRoot(GeofenceListPage);
     }

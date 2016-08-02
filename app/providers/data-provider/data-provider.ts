@@ -23,9 +23,7 @@ export class DataProvider {
     return this.storage.get('details');
   }
   save(data) {
-    let newData = Json.stringify(data);
-    console.log(newData);
-    this.storage.set('details', newData);
+    this.storage.set('details', {account: true});
   }
 
   load() {

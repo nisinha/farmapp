@@ -17,7 +17,7 @@ import {Splashscreen} from "ionic-native/dist/index";
 @Component({
   templateUrl: 'build/pages/firstscreen/firstscreen.html',
 })
-export class FirstscreenPage implements OnInit{
+export class FirstscreenPage{
 
 
   private items: any;
@@ -25,17 +25,13 @@ export class FirstscreenPage implements OnInit{
 
   }
 
-  ngOnInit() {
-    this.data.getData().then((todos) => {
-      if(todos) {
-        console.log('login allowed for list page');
-        this.nav.setRoot(GeofenceListPage);
-        console.log('setting root to geofece');
-      }
-    });
-  }
   ionViewLoaded() {
     Splashscreen.hide();
+    this.data.getData().then((todos) => {
+      if(todos) {
+        this.nav.setRoot(GeofenceListPage);
+      }
+    });
   }
 
   onSignup() {
